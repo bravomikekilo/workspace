@@ -1,0 +1,27 @@
+/*
+ * usart_io.h
+ *
+ *  Created on: 2017Äê11ÔÂ22ÈÕ
+ *      Author: B
+ */
+
+#ifndef USART_IO_H_
+#define USART_IO_H_
+
+#include "stm32f10x.h"
+#include "stm32f10x_rcc.h"
+#include "stm32f10x_gpio.h"
+#include "stm32f10x_usart.h"
+
+void uio_init(USART_TypeDef *dev, );
+
+void uio_puts_sync(USART_TypeDef *dev, const char *str);
+
+void uio_put_uint16_sync(USART_TypeDef *dev, uint16_t in);
+
+void uio_put_char_sync(USART_TypeDef *dev, char c);
+
+
+
+
+#endif /* USART_IO_H_ */

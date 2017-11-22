@@ -1,0 +1,83 @@
+/**
+  ******************************************************************************
+  * @file    main.c
+  * @author  Ac6
+  * @version V1.0
+  * @date    01-December-2013
+  * @brief   Default main function.
+  ******************************************************************************
+*/
+
+
+#include "stm32f10x.h"
+#include "stm32f10x_adc.h"
+#include "stm32f10x_gpio.h"
+#include "misc.h"
+			
+#define ADC1_DR_Address    ((uint32_t)0x4001244C)
+
+void RCC_configuration();
+void GPIO_configuration();
+void ADC_configuration();
+void NVIC_configuration();
+
+int main(void)
+{
+	ADC_StartCalibration(ADC1);
+	while(ADC_GetCalibrationStatus(ADC1));
+	ADC_SoftwareStartConvCmd(ADC1, ENABLE);
+	while(1){};
+
+}
+
+void RCC_configuration()
+{
+	RCC_ADCCLKConfig(RCC_PCLK2_Div4);
+
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
+}
+
+void GPIO_configuration()
+{
+	GPIO_InitTypeDef C_init;
+	GPIO_InitTypeDef E_init;
+
+	C_init.GPIO_Mode = GPIO_Mode_AIN;
+	C_init.GPIO_Pin = GPIO_Pin_4;
+	GPIO_Init(C_init, &C_init);
+
+	E_init.GPIO_Mode = GPIO_Mode_Out_PP;
+	E_init.GPIO_Pin = GPIO_Pin_All;
+	E_init.GPIO_Speed = GPIO_Speed_10MHz;
+	GPIO_Init(E_init, &E_init);
+
+}
+
+void ADC_configuration()
+{
+	ADC_InitTypeDef ADC1_init;
+	ADC1_init.ADC_Mode = ADC_Mode_Independent;
+	ADC1_init.ADC_DataAlign = ADC_DataAlign_Right;
+	ADC1_init.ADC_ScanConvMode = DISABLE;
+	ADC1_init.ADC_ContinuousConvMode = ENABLE;
+	ADC1_init.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+	ADC1_init.ADC_NbrOfChannel = 1;
+	ADC_Init(ADC1, &ADC1_init);
+
+	// Open PC.04
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_14, 1, ADC_SampleTime_28Cycles5);
+	ADC_Cmd(ADC1, ENABLE);
+}
+
+void NVIC_configuration()
+{
+	NVIC_InitTypeDef NVIC_init;
+	NVIC_init.NVIC_IRQChannel = ADC1_2_IRQn;
+	NVIC_init.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_init.NVIC_IRQChannelSubPriority = 0;
+	NVIC_init.NVIC_IRQChannelCmd = ENABLE;
+
+	NVIC_Init(&NVIC_init);
+}

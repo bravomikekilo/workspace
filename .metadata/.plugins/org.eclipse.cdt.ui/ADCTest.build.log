@@ -1,0 +1,6 @@
+23:24:40 **** Incremental Build of configuration Release for project ADCTest ****
+make all 
+make: Nothing to be done for 'all'.
+
+23:24:41 Build Finished (took 396ms)
+

@@ -1,0 +1,18 @@
+/*
+ * usart_io.c
+ *
+ *  Created on: 2017Äê11ÔÂ22ÈÕ
+ *      Author: B
+ */
+
+#include "usart_io.h"
+
+
+void uio_puts_sync(USART_TypeDef *dev, const char *str)
+{
+	for(;*str; ++str)
+	{
+		USART_SendData(dev, *p);
+		while(USART_GetFlagStatus(dev, USART_FLAG_TXE) == RESET);
+	}
+}

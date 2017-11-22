@@ -1,0 +1,17 @@
+/*
+ * stm32f10x_it.c
+ *
+ *  Created on: 2017Äê11ÔÂ21ÈÕ
+ *      Author: B
+ */
+
+#include "stm32f10x.h"
+
+void TIM3_IRQHandler(void)
+{
+	if(TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)
+	{
+		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+		GPIOE->ODR = ~GPIOE->ODR;
+	}
+}

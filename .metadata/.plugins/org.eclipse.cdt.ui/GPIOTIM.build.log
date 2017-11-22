@@ -1,0 +1,23 @@
+14:44:35 **** Incremental Build of configuration Debug for project GPIOTIM ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU GCC Compiler
+C:\Users\B\workspace\GPIOTIM\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -DSTM32 -DSTM32F1 -DSTM32F103ZETx -DDEBUG -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -I"C:/Users/B/workspace/GPIOTIM/StdPeriph_Driver/inc" -I"C:/Users/B/workspace/GPIOTIM/inc" -I"C:/Users/B/workspace/GPIOTIM/CMSIS/device" -I"C:/Users/B/workspace/GPIOTIM/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: GPIOTIM.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -T"C:\Users\B\workspace\GPIOTIM\LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "GPIOTIM.elf" @"objects.list"   -lm
+Finished building target: GPIOTIM.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "GPIOTIM.elf" "GPIOTIM.bin"
+arm-none-eabi-size "GPIOTIM.elf"
+   text	   data	    bss	    dec	    hex	filename
+   3980	   1104	   1092	   6176	   1820	GPIOTIM.elf
+ 
+
+14:44:37 Build Finished (took 1s.356ms)
+
